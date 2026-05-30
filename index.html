@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>ROMA AETERNA - Feria Cultural</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fuentes de Google: Cinzel (Romana) y Lora (Elegante) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --gold: #C5A059;
+            --roman-red: #721010;
+            --marble: #f4f4f4;
+            --dark: #121212;
+        }
+
+        /* Prevención de errores de renderizado de texto en móviles */
+        html {
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--marble);
+            font-family: 'Lora', serif;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .font-roman { 
+            font-family: 'Cinzel', serif; 
+            letter-spacing: 0.05em;
+        }
+
+        /* Overlay de Idioma */
+        #language-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), 
+                        url('https://images.unsplash.com/photo-1552832230-c0197dd311b5?q=80&w=1600&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease;
+        }
+
+        /* Fondo estilo Mármol */
+        .bg-marble {
+            background-color: #ffffff;
+            background-image: url('https://www.transparenttextures.com/patterns/white-diamond.png');
+            color: #1a1a1a;
+        }
+
+        /* Banner Principal (Hero) */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(114, 16, 16, 0.4)), 
+                        url('https://images.unsplash.com/photo-1552832230-c0197dd311b5?q=80&w=1600&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 8px solid var(--gold);
+        }
+
+        .card-recipe {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--gold);
+            padding: 1.5rem;
+            margin-top: 1rem;
+            border-radius: 2px;
+        }
+
+        .card-food {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .img-gastronomia {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            border: 2px solid var(--gold);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+        }
+
+        .lang-btn {
+            border: 2px solid var(--gold);
+            padding: 1rem 2.5rem;
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            transition: all 0.3s;
+            background: rgba(0,0,0,0.7);
+            min-width: 240px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .lang-btn:hover {
+            background: var(--gold);
+            color: black;
+            transform: scale(1.05);
+        }
+
+        .divider-roman {
+            height: 60px;
+            background: linear-gradient(to right, transparent, var(--gold), transparent);
+            opacity: 0.3;
+            margin: 2rem 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in { animation: fadeIn 1.2s ease-out; }
+    </style>
+</head>
+<body>
+
+    <!-- Selector de Idioma -->
+    <div id="language-overlay">
+        <div class="text-center px-4 fade-in">
+            <h2 class="font-roman text-4xl md:text-6xl text-gold mb-8 tracking-[0.25em]">AVE·VIATOR</h2>
+            <p class="mb-10 italic opacity-80 text-sm md:text-base">Selecciona tu lengua / Select your language</p>
+            <div class="flex flex-col md:flex-row gap-5 justify-center items-center">
+                <button onclick="initSite('es')" class="lang-btn">Español</button>
+                <button onclick="initSite('en')" class="lang-btn">English</button>
+                <button onclick="initSite('it')" class="lang-btn">Italiano</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <div id="main-content" style="display: none;">
+        <!-- Navegación -->
+        <nav class="fixed w-full z-50 bg-black/90 border-b border-gold py-3 px-6 flex justify-between items-center backdrop-blur-md">
+            <div class="font-roman text-xl font-bold tracking-[0.3em] text-gold">S·P·Q·R</div>
+            <button onclick="location.reload()" class="text-[10px] border border-gold px-3 py-1 font-roman text-gold hover:bg-gold hover:text-black transition">VOLVER</button>
+        </nav>
+
+        <!-- Sección Hero -->
+        <section class="hero text-center px-6">
+            <div class="fade-in">
+                <h1 class="font-roman text-5xl md:text-9xl font-black mb-4 tracking-tighter" id="hero-title">IMPERIVM</h1>
+                <p class="text-lg md:text-2xl italic font-serif text-gold max-w-2xl mx-auto leading-relaxed" id="hero-subtitle">Roma no se construyó en un día, se construyó para la eternidad.</p>
+                <div class="mt-12">
+                    <a href="#historia" class="bg-red-900 text-white px-10 py-4 font-roman border-2 border-gold inline-block hover:bg-red-800 transition-all tracking-[0.2em]">EXPLORAR</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Historia -->
+        <section id="historia" class="py-24 px-6 md:px-24 bg-marble text-black">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="font-roman text-3xl md:text-5xl text-center mb-16 text-red-900" id="hist-title">EL LEGADO DE LOS SIGLOS</h2>
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="text-base md:text-lg leading-relaxed space-y-6 text-justify" id="hist-text">
+                        <p>La Antigua Roma comenzó como una pequeña aldea en el centro de Italia en el siglo VIII a.C. y se expandió hasta convertirse en uno de los imperios más vastos y poderosos de la historia.</p>
+                        <p>Su influencia en el derecho, la arquitectura y el lenguaje todavía define nuestra civilización actual. Roma no solo conquistaba con legiones, sino con su imponente cultura.</p>
+                    </div>
+                    <div class="border-4 border-double border-red-900 p-1 bg-white shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?q=80&w=1200&auto=format&fit=crop" alt="[Foro Romano]" class="w-full h-auto">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gastronomía -->
+        <section id="gastronomia" class="py-24 px-6 md:px-24">
+            <h2 class="font-roman text-4xl md:text-5xl text-center mb-20 text-gold" id="gast-title">SABORES DE LA URBE</h2>
+            
+            <!-- Pizza -->
+            <div class="grid md:grid-cols-2 gap-16 mb-32 items-center">
+                <div class="order-2 md:order-1">
+                    <h3 class="font-roman text-3xl text-gold mb-6" id="pizza-title">LA PIZZA ROMANA</h3>
+                    <div class="text-gray-300 text-sm md:text-base mb-8 leading-relaxed" id="pizza-desc">
+                        <p>La pizza romana se define por su ligereza y su textura única. Destacan dos estilos: la crujiente <strong>Scrocchiarella</strong> y la versátil <strong>Al Taglio</strong>.</p>
+                    </div>
+                    <div class="card-recipe">
+                        <h4 class="font-roman text-gold text-lg mb-4 border-b border-gold/20 pb-2">RECETA: PIZZA AL TAGLIO</h4>
+                        <p class="text-xs italic opacity-90 leading-loose">
+                            • 1kg Harina de gran fuerza<br>
+                            • 800ml Agua muy fría<br>
+                            • 7g Levadura seca / 20g Sal marina
+                        </p>
+                    </div>
+                </div>
+                <div class="order-1 md:order-2">
+                    <img src="https://images.unsplash.com/photo-1541745537411-b8046dc6d66c?q=80&w=800" alt="[Pizza Romana]" class="img-gastronomia">
+                </div>
+            </div>
+
+            <!-- Tiramisu -->
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div>
+                    <img src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?q=80&w=800" alt="[Tiramisú]" class="img-gastronomia">
+                </div>
+                <div>
+                    <h3 class="font-roman text-3xl text-gold mb-6" id="tira-title">TIRAMISÚ CLÁSICO</h3>
+                    <div class="text-gray-300 text-sm md:text-base mb-8 leading-relaxed" id="tira-desc">
+                        <p>Su nombre significa literalmente "levántame". Es el equilibrio perfecto entre el café fuerte, el cacao amargo y la suavidad del mascarpone.</p>
+                    </div>
+                    <div class="card-recipe">
+                        <h4 class="font-roman text-gold text-lg mb-4 border-b border-gold/20 pb-2">RECETA: TRADICIONAL</h4>
+                        <p class="text-xs italic opacity-90 leading-loose">
+                            • 500g Auténtico Mascarpone<br>
+                            • 4 Yemas frescas / 100g Azúcar<br>
+                            • Bizcochos, Café espresso y Cacao
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ingeniería -->
+        <section id="ingenieria" class="py-24 bg-red-950/20">
+            <div class="container mx-auto px-6">
+                <h2 class="font-roman text-4xl text-center mb-16 text-gold" id="eng-title">INGENIERÍA IMPERIAL</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="card-food p-10 text-center border border-gold/20">
+                        <div class="text-5xl mb-6 text-gold">🏛️</div>
+                        <h4 class="font-roman text-xl mb-4">ACUEDUCTOS</h4>
+                        <p class="text-xs md:text-sm opacity-75">Sistemas de transporte de agua que abastecían a la urbe con precisión de nivel milimétrica.</p>
+                    </div>
+                    <div class="card-food p-10 text-center border border-gold/20">
+                        <div class="text-5xl mb-6 text-gold">🛣️</div>
+                        <h4 class="font-roman text-xl mb-4">CALZADAS</h4>
+                        <p class="text-xs md:text-sm opacity-75">Una red de más de 80,000 km que conectaba cada provincia con el corazón del Imperio.</p>
+                    </div>
+                    <div class="card-food p-10 text-center border border-gold/20">
+                        <div class="text-5xl mb-6 text-gold">🏟️</div>
+                        <h4 class="font-roman text-xl mb-4">COLISEO</h4>
+                        <p class="text-xs md:text-sm opacity-75">El Anfiteatro Flavio, obra maestra de la logística capaz de evacuar a 50,000 personas en minutos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-20 border-t border-gold/20 text-center bg-black">
+            <div class="font-roman text-4xl text-gold mb-4 tracking-[0.4em]">S·P·Q·R</div>
+            <p class="opacity-40 text-[10px] tracking-widest mb-10 uppercase">Senatvs Popvlvsqve Romanvs</p>
+            <div class="divider-roman mx-auto w-32"></div>
+            <p class="text-[10px] text-gray-600 uppercase tracking-[0.3em]">Roma Aeterna - Feria Cultural 2026</p>
+        </footer>
+    </div>
+
+    <script>
+        const content = {
+            es: {
+                heroTitle: "IMPERIVM",
+                heroSub: "Roma no se construyó en un día, se construyó para la eternidad.",
+                histTitle: "EL LEGADO DE LOS SIGLOS",
+                gastTitle: "SABORES DE LA URBE",
+                engTitle: "INGENIERÍA IMPERIAL"
+            },
+            en: {
+                heroTitle: "EMPIRE",
+                heroSub: "Rome wasn't built in a day, it was built for eternity.",
+                histTitle: "THE LEGACY OF CENTURIES",
+                gastTitle: "FLAVORS OF THE CITY",
+                engTitle: "IMPERIAL ENGINEERING"
+            },
+            it: {
+                heroTitle: "IMPERO",
+                heroSub: "Roma non è stata costruita in un giorno, è stata costruita per l'eternità.",
+                histTitle: "L'EREDITÀ DEI SECOLI",
+                gastTitle: "SAPORI DELLA CITTÀ",
+                engTitle: "INGEGNERIA IMPERIALE"
+            }
+        };
+
+        function initSite(lang) {
+            const overlay = document.getElementById('language-overlay');
+            const main = document.getElementById('main-content');
+            
+            overlay.style.opacity = '0';
+            
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                main.style.display = 'block';
+                
+                // Actualizar textos según idioma
+                document.getElementById('hero-title').innerText = content[lang].heroTitle;
+                document.getElementById('hero-subtitle').innerText = content[lang].heroSub;
+                document.getElementById('hist-title').innerText = content[lang].histTitle;
+                document.getElementById('gast-title').innerText = content[lang].gastTitle;
+                document.getElementById('eng-title').innerText = content[lang].engTitle;
+                
+                window.scrollTo(0, 0);
+            }, 800);
+        }
+    </script>
+</body>
+</html>
